@@ -1,11 +1,13 @@
 version: '3'
 services:
-  app:
+  app: &app_base
     build:
       context: .
     env_file:
       - ./environments/db.env
     command: bundle exec puma -C config/puma.rb
+    environment:
+      WEBPACKER_DEV_SERVER_HOST: webpack-dev-server
     volumes:
       - .:/docker_rails
       - tmp-data:/docker_rails/tmp
@@ -13,6 +15,18 @@ services:
     stdin_open: true
     depends_on:
       - db
+      - selenium_chrome
+  webpack-dev-server:
+    <<: *app_base
+    command: "bin/webpack-dev-server"
+    environment:
+      WEBPACKER_DEV_SERVER_HOST: 0.0.0.0
+    ports:
+      - "3035:3035"
+    depends_on:
+      - app
+    tty: false
+    stdin_open: false
   db:
     image: mysql:5.7
     env_file:
@@ -30,6 +44,10 @@ services:
       - 80:80
     depends_on:
       - app
+  selenium_chrome:
+    image: selenium/standalone-chrome-debug:latest
+    ports:
+      - 4444:4444
 volumes:
   tmp-data:
   db-data:
