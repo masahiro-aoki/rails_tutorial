@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe "StaticPages", type: :request do
-
   describe "GET /" do
     it "リクエストが正常であること" do
       get root_path
@@ -33,5 +32,4 @@ RSpec.describe "StaticPages", type: :request do
       expect(response.body).to include 'Contact | Ruby on Rails Tutorial Sample App'
     end
   end
-
 end

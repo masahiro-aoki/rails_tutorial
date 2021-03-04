@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe "Users", type: :request do
-
   describe "GET /signup" do
     it "リクエストが正常であること" do
       get signup_path

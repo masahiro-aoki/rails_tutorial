@@ -19,6 +19,10 @@ RSpec.describe User, type: :model do
       user = create :user, email: mixed_case_email
       expect(user.reload.email).to eq mixed_case_email.downcase
     end
+    it "remember_digestがnilのユーザーはfalseを返すこと" do
+      user = create :user
+      expect(user.authenticated?('')).to eq false
+    end
   end
 
   context 'モデルが無効の場合' do
