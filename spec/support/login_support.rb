@@ -4,11 +4,11 @@ module LoginSupport
     post login_path, params: { session: { email: user.email, password: user.password, remember_me: remember_me } }
   end
 
-  def login_in_as(user)
+  def log_in_as(user)
     visit login_path
-    fill_in "Email", with: user.email
-    fill_in "Password", with: user.password
-    click_button "送信"
+    fill_in 'Email', with: user.email
+    fill_in 'Password', with: user.password
+    click_button 'Log in'
   end
 end
 
