@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'User signup', type: :system do
   context '有効なユーザー' do
-    it '新規にユーザーが作成されてログイン状態となる' do
+    it '新規にユーザーが作成されること' do
       visit signup_path
       expect(page).to have_content 'Sign up'
 
@@ -12,18 +12,7 @@ RSpec.describe 'User signup', type: :system do
         fill_in 'Password', with: 'password'
         fill_in 'Confirmation', with: 'password'
         click_button 'Create my account'
-
-        expect(page).to have_content 'Welcome to the Sample App!'
-
-        expect(page).to_not have_content 'Log in'
-
-        expect(page).to have_content 'foo bar'
-        expect(page).to have_content 'Log out'
-        expect(page).to have_content 'Profile'
       }.to change(User, :count).by(1)
-
-      user = User.last
-      expect(current_path).to eq "/users/#{user.id}"
     end
   end
 
