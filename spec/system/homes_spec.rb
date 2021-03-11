@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Homes', type: :system do
+RSpec.describe 'Homes', type: :system, js: true do
   describe '未ログイン時' do
     it 'リンクが表示されること' do
       visit root_path

@@ -10,7 +10,7 @@ services:
       WEBPACKER_DEV_SERVER_HOST: webpack-dev-server
     volumes:
       - .:/docker_rails
-      - tmp-data:/docker_rails/tmp
+      - tmp-data:/docker_rails/tmp/sockets
     tty: true
     stdin_open: true
     depends_on:
@@ -39,7 +39,7 @@ services:
     build:
       context: containers/nginx
     volumes:
-      - tmp-data:/docker_rails/tmp
+      - tmp-data:/docker_rails/tmp/sockets
     ports:
       - 80:80
     depends_on:
@@ -48,6 +48,7 @@ services:
     image: selenium/standalone-chrome-debug:latest
     ports:
       - 4444:4444
+      - 5900:5900
 volumes:
   tmp-data:
   db-data:
